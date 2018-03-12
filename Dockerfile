@@ -2,7 +2,7 @@
 FROM resin/armv7hf-debian:stretch
 
 #enable building ARM container on x86 machinery on the web (comment out next line if built on Raspberry) 
-RUN [ "cross-build-start" ]
+#RUN [ "cross-build-start" ]
 
 #labeling
 LABEL maintainer="netpi@hilscher.com" \
@@ -21,10 +21,10 @@ RUN apt-get update \
     && apt-get install libwebsockets-dev uuid-dev wget build-essential \
 #get latest mosquitto source code
     && cd /tmp \
-    && wget http://mosquitto.org/files/source/mosquitto-1.4.14.tar.gz \
-    && tar xavf mosquitto-1.4.14.tar.gz \
+    && wget http://mosquitto.org/files/source/mosquitto-1.4.15.tar.gz \
+    && tar xavf mosquitto-1.4.15.tar.gz \
 #compile mosquitto
-    && cd mosquitto-1.4.14 \
+    && cd mosquitto-1.4.15 \
     && cmake -DWITH_WEBSOCKETS=ON . \
     && make -j4 \
     && make install \
@@ -46,4 +46,4 @@ ENTRYPOINT ["/etc/init.d/entrypoint.sh"]
 STOPSIGNAL SIGTERM
 
 #stop processing ARM emulation (comment out next line if built on Raspberry)
-RUN [ "cross-build-end" ]
+#RUN [ "cross-build-end" ]
